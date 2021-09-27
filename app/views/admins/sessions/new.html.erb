@@ -1,8 +1,7 @@
 <div>
-  <h2>ログイン</h2>
-  <p>会員の方はこちらからログイン</p>
+  <h2>管理者ログイン</h2>
 
-  <%= form_with model: @customer, url: customer_session_path, local: true do |f| %>
+  <%= form_with model: @customer, url: admin_session_path(resource_name), local: true do |f| %>
 
     <div class="field">
       <%= f.label :メールアドレス %>
@@ -14,11 +13,9 @@
       <%= f.password_field :password, autocomplete: "current-password" %>
     </div>
 
+
     <div class="actions">
       <%= f.submit "ログイン" %>
     </div>
   <% end %>
-
-　<h2>会員登録がお済みでない方</h2>
-  <%= render "devise/shared/links" %>
 </div>
