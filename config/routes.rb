@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admins, controllers: {sessions: 'admins/sessions',passwords: 'admins/passwords'}
   devise_for :customers
   root to: 'homes#top'
   get 'about' => 'homes#about'
@@ -14,12 +14,11 @@ Rails.application.routes.draw do
   resources :addresses, except:[:new, :show]
 
   namespace :admin do
-    get 'homes' => 'admin/homestop#'
-    resources :items, except: [:new]
+    root to: 'homes#top'
+    resources :items, except: [:destroy]
     resources :genres, except:[:new, :show, :destroy]
     resources :customers, except:[:new, :create, :destroy]
     resources :oders, only:[:show, :update]
-    patch 'oders/oder_details' => 'admin/oder_details#update
-    '
+    patch 'oders/oder_details' => 'admin/oder_details#update'
   end
 end
