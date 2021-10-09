@@ -13,12 +13,12 @@
 ActiveRecord::Schema.define(version: 2021_09_26_081605) do
 
   create_table "addresses", force: :cascade do |t|
+    t.integer "customer_id", null: false
     t.string "name", default: "", null: false
     t.string "postal_code", default: "", null: false
     t.string "address", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "customer_id"
   end
 
   create_table "admins", force: :cascade do |t|
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2021_09_26_081605) do
     t.string "image_id", default: "", null: false
     t.text "introduction", default: "", null: false
     t.integer "price", null: false
-    t.boolean "is_active", null: false
+    t.boolean "is_active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "genre_id"
