@@ -1,0 +1,18 @@
+<h2>商品新規登録</h2>
+<%= form_with modle:@item, url: admin_items_path, local: true do |f| %>
+  <div class="field">
+    <%= f.label :image_id, "商品画像" %>
+    <%= f.file_field :image_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name, "商品名" %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :introduction, "商品説明" %>
+    <%= f.text_area :introduction %>
+  </div>
+  <div class="field">
+    <%= f.label :
+  </div>
+<% end %>
