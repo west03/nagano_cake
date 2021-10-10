@@ -2,7 +2,7 @@
 <% if @item.errors.any? %>
     <%= @item.errors.count %>件のエラーが発生しました
     <% @item.errors.full_messages.each do |message| %>
-      <%= message %>
+      <%= message %><br>
     <% end %>
   <% end %>
 <%= form_with model: @item, url: admin_items_path, local: true do |f| %>

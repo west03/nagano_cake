@@ -2,7 +2,7 @@
 <% if @item.errors.any? %>
     <%= @item.errors.count %>件のエラーが発生しました
     <% @item.errors.full_messages.each do |message| %>
-      <%= message %>
+      <%= message %><br>
     <% end %>
   <% end %>
 <%= form_with model: @item, url: admin_item_path, local: true do |f| %>
@@ -12,14 +12,14 @@
   </div>
   <div class="field">
     <%= f.label :商品名 %>
-    <%= f.text_field :item.name %>
+    <%= f.text_field :name %>
   </div>
   <div class="field">
     <%= f.label :商品説明 %>
-    <%= f.text_area :item.introduction %>
+    <%= f.text_area :introduction %>
   </div>
   <div class="field">
-    <%= f.labrl :ジャンル %>
+    <%= f.label :ジャンル %>
     <%= f.collection_select :genre_id, @genres, :id, :name %>
   </div>
   <div class="field">
