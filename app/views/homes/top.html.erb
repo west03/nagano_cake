@@ -13,7 +13,23 @@
      <% end %>
    </tbody>
   </table>
+  </div>
+  <div>
+    <%= image_tag 'cake_ya_building.png' %>
+    <p>
+      ようこそ、ながのCAKEへ！<br>
+      このサイトは、ケーキ販売のECサイトになります・<br>
+      会員でない方も商品の観覧はっできますが、<br>
+      購入には会員登録がふつようになります。
+    </p>
+  </div>
+  <div>
+    <h2>新着商品</h2>
+    <% @items.last(4).each do |item| %>
+     <%= attachment_image_tag item, :image, :fill, 100, 100 %>
+     <%= item.name %>
+     ¥<%= item.price %>
+    <% end %>
+  </div>
+<%= link_to "全ての商品を見る", items_path %>
 
-
-
-</div>
