@@ -1,21 +1,26 @@
 Rails.application.routes.draw do
   devise_for :admins, controllers: {sessions: 'admins/sessions',passwords: 'admins/passwords'}
   devise_for :customers
+
   root to: 'homes#top'
   get 'about' => 'homes#about'
-  resources :items, only:[:index, :show]
-  resources :customers, only:[:show, :edit, :update]
-  get 'customers/unsubscribe' => 'public/customers#unsubscribe'
-  patch 'customers/withdraw' => 'public/customers#withdraw'
-  resources :cart_items, only:[:index, :update, :destroy, :create] do
-    collection do
-      delete "destroy_all"
+
+  scope module: :public do
+    resources :items, only:[:index, :show]
+    resources :customers, only:[:show, :edit, :update]
+    get 'customers/unsubscribe' => 'customers#unsubscribe'
+    patch 'customers/withdraw' => 'customers#withdraw'
+    resources :cart_items, only:[:index, :update, :destroy, :create] do
+      collection do
+        delete "destroy_all"
+      end
     end
+    resources :orders, only:[:index, :new, :show, :create]
+    post 'orders/comfirm' => 'orders#comfirm'
+    get 'orders/complete' => 'orders#coomplete'
+    resources :addresses, except:[:new, :show]
   end
-  resources :orders, only:[:index, :new, :show, :create]
-  post 'orders/comfirm' => 'public/orders#comfirm'
-  get 'orders/complete' => 'public/orders#coomplete'
-  resources :addresses, except:[:new, :show]
+
 
   namespace :admin do
     root to: 'homes#top'

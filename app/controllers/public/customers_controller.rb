@@ -1,4 +1,4 @@
-class CustomersController < ApplicationController
+class Public::CustomersController < ApplicationController
   def show
   end
 
@@ -7,9 +7,9 @@ class CustomersController < ApplicationController
 
   def update
   end
-  
+
   def unsubscribe
-  end 
+  end
 
   def withdraw
   end
