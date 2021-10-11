@@ -11,6 +11,7 @@
 
   <body>
      <% if admin_signed_in? %>
+      <%= link_to "ロゴ", admin_root_path %>
       <p>ようこそ管理者</p>
        <li>
         <%= link_to "商品一覧",  admin_items_path %>
@@ -28,7 +29,8 @@
         <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
       </li>
     <% elsif customer_signed_in?  %>
-      <P>ようこそ<%= current_customer.last_name %>さん</P>
+      <%= link_to "ロゴ", root_path %>
+      <P>ようこそ、<%= current_customer.last_name %>さん！</P>
       <li>
         <%= link_to "マイページ", customer_path(current_customer.id) %>
       </li>
@@ -42,6 +44,7 @@
         <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
       </li>
     <% else %>
+      <%= link_to "ロゴ", root_path %>
        <li>
         <%= link_to "About", about_path %>
       </li>

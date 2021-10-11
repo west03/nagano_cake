@@ -1,0 +1,18 @@
+<div>
+  <div>
+    <%= render 'homes/genre', genres: @genres %>
+  </div>
+  <div>
+    <%= attachment_image_tag @item, :image, :fill, 300,250 %>
+    <p><%= @item.name %></p>
+    <p><%= @item.introduction %></p>
+    <p>¥<%= @item.with_tax_price %>(税込)</p>
+    <div>
+      <%= form_with model: @cart_item, url: cart_items_path, local: true do |f| %>
+      <%= f.hidden_field :item_id, value: @item.id %>
+      <%= f.select :amouunt, *[1..99] %>
+      <%= f.submit "カートに入れる" %>
+      <% end %>
+    </div>
+  </div>
+</div>
