@@ -19,10 +19,40 @@
           <%= cart_item.item.name %>
         </td>
         <td><%= cart_item.item.with_tax_price %></td>
-        <td><%= cart_item.amount</td>
+        <td><%= cart_item.amount %></td>
         <td><%= cart_item.subtotal %></td>
         <% @sum += cart_item.subtotal %>
       </tr>
       <% end %>
     </tbody>
   </table>
+  <table border="1">
+    <% @order.postage_cost = 800 %>
+    <tr><th>送料</th><td><%= @order.postage_cost %></td></tr>
+    <tr><th>商品合計</th><td><%= @sum %></td></tr>
+    <% @order.total_payment = @sum + @order.postage_cost %>
+    <tr><th>請求金額</th><td><%= @order.total_payment %></td></tr>
+  </table>
+  <p>お支払い方法<span><%= @order.payment_method_i18n %></span></p>
+  <p>
+    お届け先
+    <span>
+      <%= @order.postal_code %>
+      <%= @order.address %>
+      <%= @order.name %>
+    </span>
+  </p>
+  <div>
+    <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field :customer_id %>
+      <%= f.hidden_field :postage_cost %>
+      <%= f.hidden_field :total_payment %>
+      <%= f.hidden_field :payment_method %>
+      <%= f.hidden_field :name %>
+      <%= f.hidden_field :address %>
+      <%= f.hidden_field :postal_code %>
+      <%= f.hidden_field :status %>
+      <%= f.submit "注文を確定する" %>
+    <% end %>
+  </div>
+</div>

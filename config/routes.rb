@@ -15,9 +15,9 @@ Rails.application.routes.draw do
         delete "destroy_all"
       end
     end
-    resources :orders, only:[:index, :new, :show, :create]
     post 'orders/comfirm' => 'orders#comfirm'
-    get 'orders/complete' => 'orders#coomplete'
+    get 'orders/complete' => 'orders#complete'
+    resources :orders, only:[:index, :new, :show, :create]
     resources :addresses, except:[:new, :show]
   end
 

@@ -1,5 +1,9 @@
 class Public::OrdersController < ApplicationController
+
+   before_action :authenticate_customer!
+
   def index
+
   end
 
   def new
@@ -8,6 +12,8 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find(params[:id])
+    @ordered_items = @order.ordered_items
   end
 
   def comfirm
@@ -28,24 +34,34 @@ class Public::OrdersController < ApplicationController
     else
       render :new
     end
-
     @cart_items = current_customer.cart_items
     @order.customer_id = current_customer.id
   end
 
   def create
-  end
-
-  def thanks
+     @order = Order.new(order_params)
+     @order.customer_id = current_customer.id
+     @order.save
+     current_customer.cart_items.each do |cart_item|
+       @ordered_item = OrderDetail.new
+       @ordered_item.order_id = @order.id
+       @ordered_item.item_id = cart_item.item_id
+       @ordered_item.amount = cart_item.amount
+       @ordered_item.price = (cart_item.item.with_tax_price*cart_item.amount)
+       @ordered_item.save
+     end
+     current_customer.cart_items.destroy_all
+     redirect_to orders_complete_path
   end
 
   def complete
+    
   end
 
   private
 
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name)
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :customer_id, :postage_cost, :total_payment, :status)
   end
 
 end
