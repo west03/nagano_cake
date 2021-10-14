@@ -5,33 +5,35 @@
       <%= message %><br>
     <% end %>
   <% end %>
-<%= form_with model: @item, url: admin_item_path, local: true do |f| %>
-  <div class="field">
-    <%= f.label :商品画像 %>
-    <%= f.attachment_field :image %>
+  <div>
+    <%= form_with model: @item, url: admin_item_path, local: true do |f| %>
+    <div class="field">
+      <%= f.label :商品画像 %>
+      <%= f.attachment_field :image %>
+    </div>
+    <div class="field">
+      <%= f.label :商品名 %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :商品説明 %>
+      <%= f.text_area :introduction %>
+    </div>
+    <div class="field">
+      <%= f.label :ジャンル %>
+      <%= f.collection_select :genre_id, @genres, :id, :name %>
+    </div>
+    <div class="field">
+      <%= f.label :税抜価格 %>
+      <%= f.number_field :price %>
+    </div>
+    <div class="field">
+      <%= f.label :販売ステータス %>
+      <%= f.radio_button :is_active, :true %>販売
+      <%= f.radio_button :is_active, :false %>販売中止
+    </div>
+     <div class="actions">
+      <%= f.submit "変更を保存する" %>
+    </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label :商品名 %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :商品説明 %>
-    <%= f.text_area :introduction %>
-  </div>
-  <div class="field">
-    <%= f.label :ジャンル %>
-    <%= f.collection_select :genre_id, @genres, :id, :name %>
-  </div>
-  <div class="field">
-    <%= f.label :税抜価格 %>
-    <%= f.number_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :販売ステータス %>
-    <%= f.radio_button :is_active, :true %>販売
-    <%= f.radio_button :is_active, :false %>販売中止
-  </div>
-   <div class="actions">
-    <%= f.submit "変更を保存する" %>
-  </div>
-<% end %>

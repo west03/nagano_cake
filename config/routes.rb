@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
+  #ルートは上から優先度が高くなる
+  #:idにはなんでも入る => /signは/id(1)は同じ,idはできるだけ下に置く
   devise_for :admins, controllers: {sessions: 'admins/sessions',passwords: 'admins/passwords'}
-  devise_for :customers
 
   root to: 'homes#top'
   get 'about' => 'homes#about'
 
   scope module: :public do
     resources :items, only:[:index, :show]
-    resources :customers, only:[:show, :edit, :update]
+    resource :customers, only:[:edit, :update]
+    get 'customers/my_page' => 'customers#show', as: 'my_page'
     get 'customers/unsubscribe' => 'customers#unsubscribe'
     patch 'customers/withdraw' => 'customers#withdraw'
     resources :cart_items, only:[:index, :update, :destroy, :create] do
@@ -30,4 +32,8 @@ Rails.application.routes.draw do
     resources :oders, only:[:show, :update]
     patch 'oders/oder_details' => 'admin/oder_details#update'
   end
+
+
+  devise_for :customers
+
 end

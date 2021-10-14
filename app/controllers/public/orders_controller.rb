@@ -43,6 +43,7 @@ class Public::OrdersController < ApplicationController
      @order.customer_id = current_customer.id
      @order.save
      current_customer.cart_items.each do |cart_item|
+      # 注文履歴にデータを残す
        @ordered_item = OrderDetail.new
        @ordered_item.order_id = @order.id
        @ordered_item.item_id = cart_item.item_id
@@ -50,12 +51,12 @@ class Public::OrdersController < ApplicationController
        @ordered_item.price = (cart_item.item.with_tax_price*cart_item.amount)
        @ordered_item.save
      end
+    # カートの中を空にして再度新しいカートで買い物ができる
      current_customer.cart_items.destroy_all
      redirect_to orders_complete_path
   end
 
   def complete
-    
   end
 
   private
