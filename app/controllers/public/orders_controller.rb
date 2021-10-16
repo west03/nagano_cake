@@ -3,7 +3,7 @@ class Public::OrdersController < ApplicationController
    before_action :authenticate_customer!
 
   def index
-
+    @orders = current_customer.orders
   end
 
   def new
@@ -13,7 +13,6 @@ class Public::OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @ordered_items = @order.ordered_items
   end
 
   def comfirm
@@ -44,12 +43,13 @@ class Public::OrdersController < ApplicationController
      @order.save
      current_customer.cart_items.each do |cart_item|
       # 注文履歴にデータを残す
-       @ordered_item = OrderDetail.new
-       @ordered_item.order_id = @order.id
-       @ordered_item.item_id = cart_item.item_id
-       @ordered_item.amount = cart_item.amount
-       @ordered_item.price = (cart_item.item.with_tax_price*cart_item.amount)
-       @ordered_item.save
+      # =の左側はなんでもいい（モデルに合わせると他の人が見やすい）
+       @order_detail = OrderDetail.new
+       @order_detail.order_id = @order.id
+       @order_detail.item_id = cart_item.item_id
+       @order_detail.amount = cart_item.amount
+       @order_detail.price = (cart_item.item.with_tax_price*cart_item.amount)
+       @order_detail.save
      end
     # カートの中を空にして再度新しいカートで買い物ができる
      current_customer.cart_items.destroy_all
@@ -62,7 +62,9 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :customer_id, :postage_cost, :total_payment, :status)
+    params.require(:order).permit(
+      :payment_method, :postal_code, :address, :name, :customer_id, :postage_cost, :total_payment, :status,
+      address:[:postal_code, :address, :name])
   end
 
 end

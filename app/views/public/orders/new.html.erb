@@ -7,6 +7,7 @@
     <% end %>
   <% end %>
   <%= form_with model: @order, url: orders_comfirm_path, method: :post, local: true do |f| %>
+  <%= f.hidden_field :customer_id %>
     <dvi>
     <p>支払い方法</p>
       <%= f.radio_button :payment_method,:credit_card %>
@@ -26,7 +27,7 @@
       <div>
         <%= f.radio_button :address_option, 1 %>
         <%= f.label :登録済住所から選択 %><br>
-        <%= f.collection_select :customer_id, @addresses, :id, :full_adresses, :include_blank => "選択してください" %>
+        <%= f.collection_select :customer_id, @addresses, :id, :full_address, :include_blank => "選択してください" %>
       </div>
       <div>
         <%= f.radio_button :address_option, 2 %>
@@ -39,7 +40,7 @@
         <%= f.text_field :name %>
       </div>
       <div>
-        <%= f.submit "確認画面へ進む" %>
+        <%= f.submit "確認画面へ進む", class:"btn btn-success" %>
       </div>
     </dvi>
   <% end %>

@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources :items, except: [:destroy]
     resources :genres, except:[:new, :show, :destroy]
     resources :customers, except:[:new, :create, :destroy]
-    resources :oders, only:[:show, :update]
+    resources :orders, only:[:show, :update]
     patch 'oders/oder_details' => 'admin/oder_details#update'
   end
 

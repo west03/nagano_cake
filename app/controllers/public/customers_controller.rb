@@ -20,7 +20,7 @@ class Public::CustomersController < ApplicationController
 
   def unsubscribe
     # find_byはid以外を取得する (探すカラム名: params[:値])
-    @customer = Customer.find_by(name: params[:name])
+    @customer = Customer.find(current_customer.id)
   end
 
   def withdraw

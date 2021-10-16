@@ -1,12 +1,12 @@
 class Order < ApplicationRecord
 
-  has_many :order_detail
+  has_many :order_details
   belongs_to :customer
-  
+
   validates :name, presence: true
   validates :address, presence: true
   validates :postal_code, presence: true
-  
+
 
   enum status: {
      "入金待ち":0,
