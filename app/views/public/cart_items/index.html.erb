@@ -1,40 +1,65 @@
-<div>
-  <h2>ショッピングカート</h2>
-  <%= link_to "カートを空にする", destroy_all_cart_items_path,  method: :delete %>
-  <table>
-    <thead>
-      <tr>
-        <th>商品名</th>
-        <th>単価(税込)</th>
-        <th>数量</th>
-        <th>小計</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @sum = 0 %>
-      <!--eachは全部を取り出す 単数だとエラーが出る-->
-      <% @cart_items.each do |cart_item| %>
-      <tr>
-        <td>
-          <%= attachment_image_tag cart_item.item, :image, :fill, 80,50 %>
-          <%= cart_item.item.name %>
-        </td>
-        <td><%= cart_item.item.with_tax_price %></td>
-        <td>
-          <%= form_with model: @cart_item, url: cart_item_path(cart_item.id),method: :patch, local: true do |f| %>
-            <%= f.select :amount, *[1..99], {selected: cart_item.amount} %>
-            <%= f.submit "変更" %>
+<div class="container">
+  <div class="row my-2">
+    <div class="col-5">
+      <h3 class="text-center"><strong>ショッピングカート</strong></h>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-3">
+      <%= link_to "カートを空にする", destroy_all_cart_items_path,  method: :delete,  class:'btn btn-danger btn-sm'  %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table border="1" class="mx-auto">
+        <thead>
+          <tr>
+            <th width="30%" height="60">商品名</th>
+            <th width="12%">単価(税込)</th>
+            <th width="12%">数量</th>
+            <th width="12%">小計</th>
+            <th width="12%"></th>
+          </tr>
+      </thead>
+      <tbody>
+          <% @sum = 0 %>
+          <!--eachは全部を取り出す 単数だとエラーが出る-->
+          <% @cart_items.each do |cart_item| %>
+          <tr>
+            <td height="60">
+              <%= attachment_image_tag cart_item.item, :image, :fill, 60,50 %>
+              <%= cart_item.item.name %>
+            </td>
+            <td><%= cart_item.item.with_tax_price %></td>
+            <td>
+              <%= form_with model: @cart_item, url: cart_item_path(cart_item.id),method: :patch, local: true do |f| %>
+                <%= f.select :amount, *[1..99], {selected: cart_item.amount} %>
+                <%= f.submit "変更", class: "btn btn-success btn-sm" %>
+              <% end %>
+            </td>
+            <td><%= cart_item.subtotal %></td>
+            <% @sum += cart_item.subtotal %>
+            <td><%= link_to "削除する", cart_item_path(cart_item),method: :delete,class:'btn btn-danger btn-sm mx-auto' %></td>
+          </tr>
           <% end %>
-        </td>
-        <td><%= cart_item.subtotal %></td>
-        <% @sum += cart_item.subtotal %>
-        <td><%= link_to "削除する", cart_item_path(cart_item),method: :delete %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
-<%= link_to "買い物を続ける", items_path %>
-<span>合計金額<%= @sum  %></span>
-<%= link_to "情報入力に進む", new_order_path %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row my-5">
+    <div class="col-1"></div>
+    <div class="col-8">
+      <%= link_to "買い物を続ける", items_path, class:'btn btn-primary ' %>
+    </div>
+    <div class="col-3">
+      <table border="2">
+        <tr>
+          <td width="100" height="60">合計金額</td>
+          <td width="120"><%= @sum  %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="row mx-auto">
+      <%= link_to "情報入力に進む", new_order_path, class: 'btn btn-success' %>
+    </div>
+  </div>
 </div>

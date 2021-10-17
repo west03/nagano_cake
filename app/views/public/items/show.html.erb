@@ -1,17 +1,20 @@
-<div>
-  <div>
-    <%= render 'homes/genre', genres: @genres %>
-  </div>
-  <div>
-    <%= attachment_image_tag @item, :image, :fill, 300,250 %>
-    <p><%= @item.name %></p>
-    <p><%= @item.introduction %></p>
-    <p>¥<%= @item.with_tax_price %>(税込)</p>
-    <div>
+<div class="container">
+  <div class="row">
+    <div calss="col-2">
+      <%= render 'homes/genre', genres: @genres %>
+    </div>
+    <div class="col-5">
+      <%= attachment_image_tag @item, :image, :fill, 300,250 %>
+    </div>
+    <div class="5">
+      <p><%= @item.name %></p>
+      <p><%= @item.introduction %></p>
+      <p>¥<%= @item.with_tax_price %>(税込)</p>
+
       <%= form_with model: @cart_item, url: cart_items_path, method: :post,local: true do |f| %>
       <%= f.hidden_field :item_id, value: @item.id %>
       <%= f.select :amount, *[1..99] %>
-      <%= f.submit "カートに入れる" %>
+      <%= f.submit "カートに入れる", class: "btn btn-success ml-3" %>
       <% end %>
     </div>
   </div>

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Customers::SessionsController < Devise::SessionsController
+  # 忘れず書く
+    before_action :reject_inactive_customer, only: [:create]
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -25,9 +27,10 @@ class Customers::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
   def reject_inactive_customer
-    @customer = Customer.find_by(name: params[:customer][:name])
+    # キーのカラムを指定する
+    @customer = Customer.find_by(email: params[:customer][:email])
     if @customer
-      if @customer.valid_password?(params[:customer][:password])&& !@customer.is_valid
+      if @customer.valid_password?(params[:customer][:password])&& !@customer.is_active
         redirect_to new_customer_session_path
       end
     end

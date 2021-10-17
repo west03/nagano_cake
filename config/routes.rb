@@ -29,11 +29,12 @@ Rails.application.routes.draw do
     resources :items, except: [:destroy]
     resources :genres, except:[:new, :show, :destroy]
     resources :customers, except:[:new, :create, :destroy]
-    resources :orders, only:[:show, :update]
-    patch 'oders/oder_details' => 'admin/oder_details#update'
+    resources :orders, only:[:show, :update] do
+      resources :order_details, only:[:update]
+    end
   end
 
-
-  devise_for :customers
+  # しっかりと{sessions: 'customers/sessions',passwords: 'customers/passwords'}を書かないとブラックボックスが走る
+  devise_for :customers, controllers: {sessions: 'customers/sessions',passwords: 'customers/passwords'}
 
 end

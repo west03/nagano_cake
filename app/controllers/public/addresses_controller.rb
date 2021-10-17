@@ -1,5 +1,8 @@
 class Public::AddressesController < ApplicationController
   before_action :authenticate_customer!
+
+  before_action :customer_is_deleted
+
   def index
     @addresses = current_customer.addresses
     @address = Address.new
@@ -41,6 +44,13 @@ class Public::AddressesController < ApplicationController
 
   def address_params
     params.require(:address).permit(:name, :address, :postal_code, :customer_id)
+  end
+
+  #退会済みユーザーへの対応
+  def customer_is_deleted
+    if current_customer.is_deleted?
+      redirect_to root_path
+    end
   end
 
 end

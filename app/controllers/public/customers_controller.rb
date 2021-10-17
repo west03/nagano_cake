@@ -19,12 +19,12 @@ class Public::CustomersController < ApplicationController
   end
 
   def unsubscribe
-    # find_byはid以外を取得する (探すカラム名: params[:値])
+    # ログインしているアカウントを探す
     @customer = Customer.find(current_customer.id)
   end
 
   def withdraw
-    @customer = Customer.find_dy(name: params[:name])
+    @customer = Customer.find(current_customer.id)
     @customer.update(is_active: false)
     # セッション情報（ログイン情報）をリセット
     reset_session

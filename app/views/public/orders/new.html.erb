@@ -1,21 +1,24 @@
-<dvi>
-  <h2>注文情報入力</h2>
-  <% if @order.errors.any? %>
-    <%= @order.errors.count %>件のエラーが発生しました
-    <% @order.errors.full_messages.each do |message| %>
-      <%= message %><br>
+<dvi class="container">
+  <div class="row" style="width: 60%; margin: 20px auto;">
+    <h2>注文情報入力</h2>
+    <% if @order.errors.any? %>
+      <%= @order.errors.count %>件のエラーが発生しました
+      <% @order.errors.full_messages.each do |message| %>
+        <%= message %><br>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+  <div class="row" style="width: 60%; margin: 20px auto;">
   <%= form_with model: @order, url: orders_comfirm_path, method: :post, local: true do |f| %>
   <%= f.hidden_field :customer_id %>
-    <dvi>
+    <dvi style="padding: 5">
     <p>支払い方法</p>
       <%= f.radio_button :payment_method,:credit_card %>
       <%= f.label :クレジットカード %><br>
       <%= f.radio_button :payment_method,:transfer %>
       <%= f.label :銀行振込 %>
     </dvi>
-    <dvi>
+    <dvi style="padding: 5">
       <p>お届け先</p>
       <div>
         <%= f.radio_button :address_option, 0 %>
@@ -29,7 +32,7 @@
         <%= f.label :登録済住所から選択 %><br>
         <%= f.collection_select :customer_id, @addresses, :id, :full_address, :include_blank => "選択してください" %>
       </div>
-      <div>
+      <div style="padding: 5">
         <%= f.radio_button :address_option, 2 %>
         <%= f.label :新しいお届け先 %><br>
         <%= f.label :"郵便番号 (ハイフンなし)" %>
@@ -44,4 +47,5 @@
       </div>
     </dvi>
   <% end %>
+  </div>
 </dvi>

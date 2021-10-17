@@ -1,10 +1,15 @@
-<div>
-  <h2>本当に退会しますか？</h2>
-  <p>
-    退会すると、会員登録情報や<br>
-    これまでの購入履歴が閲覧できなくなります。<br>
-    退会する場合は、「退会する」をクリックしてください。
-  </p>
-  <%= link_to "退会しない", my_page_path %>
-  <%= link_to "退会する",  customers_withdraw_path(@customer), method: :patch %>
+<div class="container">
+  <div style="margin: 150px 0;">
+    <h2 class="text-center mb-3">本当に退会しますか？</h2>
+    <p class="text-center">
+      退会すると、会員登録情報や<br>
+      これまでの購入履歴が閲覧できなくなります。<br>
+      退会する場合は、「退会する」をクリックしてください。
+    </p>
+    <!--widthの記載がないと真ん中に寄らない-->
+    <div class="mx-auto mt-4" style="width: 200px;">
+      <%= link_to "退会しない", my_page_path, class: "btn-sm btn-primary mr-2" %>
+      <%= link_to "退会する",  customers_withdraw_path(@customer), method: :patch, class: "btn-sm btn-danger ml-2" %>
+    </div>
+  </div>
 </div>

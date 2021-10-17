@@ -1,5 +1,7 @@
 class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
+  
+
   def index
     @cart_items = current_customer.cart_items
   end
@@ -42,6 +44,13 @@ class Public::CartItemsController < ApplicationController
 
   def cart_item_params
     params.require(:cart_item).permit(:item_id, :amount)
+  end
+
+  #退会済みユーザーへの対応
+  def customer_is_deleted
+    if customer_signed_in?
+      redirect_to root_path
+    end
   end
 
 end
