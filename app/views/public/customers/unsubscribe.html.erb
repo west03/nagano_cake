@@ -9,7 +9,7 @@
     <!--widthの記載がないと真ん中に寄らない-->
     <div class="mx-auto mt-4" style="width: 200px;">
       <%= link_to "退会しない", my_page_path, class: "btn-sm btn-primary mr-2" %>
-      <%= link_to "退会する",  customers_withdraw_path(@customer), method: :patch, class: "btn-sm btn-danger ml-2" %>
+      <%= link_to "退会する",  customers_withdraw_path(@customer), method: :patch, "data-confirm" => "本当に退会しますか", class: "btn-sm btn-danger ml-2" %>
     </div>
   </div>
 </div>

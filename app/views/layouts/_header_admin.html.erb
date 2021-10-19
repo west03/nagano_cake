@@ -1,24 +1,21 @@
-<div class="admin-nav-bar">
-  <nav class="nav navbar-brand ">
+
     <%= link_to admin_root_path do %>
       <%= image_tag 'スクリーンショット.png',  size: '250x90' %>
     <% end %>
-    <ul class="nav pull-right nav-pills ml-auto ">
-        <li class="admin-nav-item">
+    <p>管理者ページ</p>
+        <li>
         <%= link_to "商品一覧",  admin_items_path %>
       </li>
-      <li class="admin-nav-item">
+      <li>
         <%= link_to "会員一覧",  admin_customers_path %>
       </li>
-      <li class="admin-nav-item">
+      <li>
         <%= link_to "注文履歴一覧",  admin_root_path %>
       </li>
-      <li class="admin-nav-item">
+      <li>
         <%= link_to "ジャンル一覧",   admin_genres_path %>
       </li>
-      <li class="admin-nav-item">
+      <li>
         <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
       </li>
-    </ul>
-  </nav>
-</div>
+
