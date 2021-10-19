@@ -1,9 +1,9 @@
 <div class="container">
   <h2>注文履歴</h2>
   <p>購入者<span class="ml-3"><%= @order.name %></span></p>
-  <p>注文日<%= @order.created_at.strftime("%Y/%m/%d") %></p>
-  <p>配送先<%= @order.address %></p>
-  <p>支払方法<%= @order.payment_method_i18n %></p>
+  <p>注文日<span class="ml-3"><%= @order.created_at.strftime("%Y/%m/%d") %></span></p>
+  <p>配送先<span class="ml-3"><%= @order.address %></span></p>
+  <p>支払方法<span class="ml-3"><%= @order.payment_method_i18n %></span></p>
   <p>
     注文ステータス
     <%= form_with model: @order, url: admin_order_path(@order.id), method: :patch, local: true do |f| %>
@@ -11,40 +11,46 @@
     <!--モデルのenumからstautsを引っ張ってきている-->
     <!--.keysがパラメータに送る情報を数値にしてくれる-->
       <%= f.select :status, Order.statuses.keys %>
-      <%= f.submit "更新" %>
+      <%= f.submit "更新", class: "btn-sm btn-success"  %>
     <% end %>
   </p>
-  <table border="1">
-    <thead>
-      <tr>
-        <th>商品名</th>
-        <th>単価（税込）</th>
-        <th>数量</th>
-        <th>小計</th>
-        <th>制作ステータス</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @sum = 0 %>
-      <% @order_details.each do |order_detail| %>
-      <tr>
-        <td><%= order_detail.item.name %></td>
-        <td><%= order_detail.item.with_tax_price %></td>
-        <td><%= order_detail.amount %></td>
-        <td><%= order_detail.amount * order_detail.item.with_tax_price %></td>
-        <td>
-          <%= form_with model: order_detail, url: admin_order_order_detail_path(@order.id,order_detail.id), method: :patch, local: true do |f| %>
-          <!--making_statusesはmaking_statusの複数形-->
-            <%= f.select :making_status, OrderDetail.making_statuses.keys %>
-            <%= f.submit "更新" %>
+  <div class="row my-3">
+    <div class="col-8">
+      <table border="1" width="100%">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>単価（税込）</th>
+            <th>数量</th>
+            <th>小計</th>
+            <th>制作ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @sum = 0 %>
+          <% @order_details.each do |order_detail| %>
+          <tr>
+            <td width="25%"><%= order_detail.item.name %></td>
+            <td width="20%"><%= order_detail.item.with_tax_price %></td>
+            <td width="15%"><%= order_detail.amount %></td>
+            <td width="15%"><%= order_detail.amount * order_detail.item.with_tax_price %></td>
+            <td width="25%">
+              <%= form_with model: order_detail, url: admin_order_order_detail_path(@order.id,order_detail.id), method: :patch, local: true do |f| %>
+              <!--making_statusesはmaking_statusの複数形-->
+                <%= f.select :making_status, OrderDetail.making_statuses.keys %>
+                <%= f.submit "更新", class: "btn-sm btn-success" %>
+              <% end %>
+            </td>
+          </tr>
+          <% @sum += order_detail.amount * order_detail.item.with_tax_price %>
           <% end %>
-        </td>
-      </tr>
-      <% @sum += order_detail.amount * order_detail.item.with_tax_price %>
-      <% end %>
-    </tbody>
-  </table>
-  <p>商品合計<%= @sum %>円</p>
-  <p>送料<%= @order.postage_cost %>円</p>
-  <p>請求金額<%= @sum + @order.postage_cost %>円</p>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4">
+      <p>商品合計<%= @sum %>円</p>
+      <p>送料<%= @order.postage_cost %>円</p>
+      <p>請求金額<%= @sum + @order.postage_cost %>円</p>
+    </div>
+  </div>
 </div>

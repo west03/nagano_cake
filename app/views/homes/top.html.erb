@@ -1,24 +1,38 @@
-  <div>
-    <%= render 'homes/genre', genres: @genres %>
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <%= render 'homes/genre', genres: @genres %>
+    </div>
+    <div class="col-10">
+      <!--cardを使えば文字を画像の上に待って来ることができる-->
+      <div class="card" >
+        <%= image_tag 'cake_ya_building.png', :size => '600x300' %>
+        <div class="card-img-overlay">
+          <!--文字を中央寄せ上下均等になる-->
+          <p class="d-flex align-items-center justify-content-center text-white" style="height:300px;">
+            ようこそ、ながのCAKEへ！<br>
+            このサイトは、ケーキ販売のECサイトになります。<br>
+            会員でない方も商品の観覧はできますが、<br>
+            購入には会員登録が必要になります。
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2>新着商品</h2>
+        <div class="row">
+          <% @items.first(4).each do |item| %>
+          <!--col-3は3/12=4になるので四等分になる-->
+          <div class="col-3">
+             <%= attachment_image_tag item, :image, :fill, 100, 100 %>
+           <p><%= item.name %></p>
+           <p>¥<%= item.price %></p>
+         </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-    <%= image_tag 'cake_ya_building.png' %>
-    <p>
-      ようこそ、ながのCAKEへ！<br>
-      このサイトは、ケーキ販売のECサイトになります・<br>
-      会員でない方も商品の観覧はできますが、<br>
-      購入には会員登録がふつようになります。
-    </p>
+  <div class="text-right py-4">
+    <%= link_to "全ての商品を見る>", items_path, class: "btn-sm "%>
   </div>
-  <div>
-    <h2>新着商品</h2>
-    <% @items.first(4).each do |item| %>
-    <div>
-     <%= attachment_image_tag item, :image, :fill, 100, 100 %>
-     <p><%= item.name %></p>
-     <p>¥<%= item.price %></p>
-     </div>
-    <% end %>
-  </div>
-<%= link_to "全ての商品を見る", items_path %>
-
+</div>

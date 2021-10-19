@@ -1,14 +1,23 @@
-<h2>ジャンル編集</h2>
-<% if @genre.errors.any? %>
-  <%= @genre.errors.count %>件のエラーが発生しました
-  <% @genre.errors.full_messages.each do |message| %>
-    <%= message %>
+<div class="container">
+  <h2 class="my-3">ジャンル編集</h2>
+  <% if @genre.errors.any? %>
+    <%= @genre.errors.count %>件のエラーが発生しました
+    <% @genre.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
   <% end %>
-<% end %>
-<%= form_with model:@genre, url: admin_genre_path, local: true do |f| %>
-  <div class="field">
-    <%= f.label :ジャンル名 %>
-    <%= f.text_field :name, autofocus: true%>
-  </div>
-  <%= f.submit "変更を保存" %>
-<% end %>
+  <%= form_with model:@genre, url: admin_genre_path, local: true do |f| %>
+    <div class="field my-3">
+      <p>
+        <%= f.label :ジャンル名 %>
+        <span class="ml-3">
+          <%= f.text_field :name, autofocus: true%>
+        </span>
+        <span class="ml-3">
+          <%= f.submit "変更を保存", class: "btn btn-success" %>
+        </span>
+      </p>
+    </div>
+
+  <% end %>
+</div>

@@ -1,32 +1,38 @@
-<h2>商品一覧</h2>
-<!--button_toはformタグになる-->
-<%= button_to "+",  new_admin_item_path, method: :get %>
-<table>
-  <thead>
-    <tr>
-      <th>商品ID</th>
-      <th>商品名</th>
-      <th>税抜価格</th>
-      <th>ジャンル</th>
-      <th>ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
-    <tr>
-      <td><%= item.id %></td>
-      <td><%= link_to item.name, admin_item_path(item.id) %></td>
-      <td><%= item.price %></td>
-      <td><%= item.genre.name %></td>
-      <td>
-        <% if item.is_active == true %>
-          <p>販売中</p>
-        <% else %>
-          <p>販売中止</p>
-        <% end %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= paginate @items %>
+<div class="container">
+  <div class="d-flex">
+    <h2>商品一覧</h2>
+    <!--button_toはformタグになる-->
+    <div class="ml-auto p-2 bd-highlight"><%= button_to "+",  new_admin_item_path, method: :get  %></div>
+    </div>
+  <table class="my-5">
+    <thead>
+      <tr>
+        <th width="20%">商品ID</th>
+        <th width="20%">商品名</th>
+        <th width="20%">税抜価格</th>
+        <th width="20%">ジャンル</th>
+        <th width="20%">ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= link_to item.name, admin_item_path(item.id) %></td>
+        <td><%= item.price %></td>
+        <td><%= item.genre.name %></td>
+        <td>
+          <% if item.is_active == true %>
+            <p>販売中</p>
+          <% else %>
+            <p>販売中止</p>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="mx-auto mb-3" style="width: 200px;">
+    <%= paginate @items %>
+  </div>
+</div>

@@ -1,46 +1,86 @@
-<h2><%= @customer.last_name %><%= @customer.first_name %>さんの会員情報編集</h2>
-<% if @customer.errors.any? %>
-    <%= @customer.errors.count %>件のエラーが発生しました
-    <% @customer.errors.full_messages.each do |message| %>
-      <%= message %><br>
+<div class="container">
+  <h2><%= @customer.last_name %><%= @customer.first_name %>さんの会員情報編集</h2>
+  <% if @customer.errors.any? %>
+      <%= @customer.errors.count %>件のエラーが発生しました
+      <% @customer.errors.full_messages.each do |message| %>
+        <%= message %><br>
+      <% end %>
     <% end %>
-  <% end %>
-<div>
-    <p>会員ID<%= @customer.id %></p>
-    <%= form_with model: @customer, url: admin_customer_path(@customer.id), local: true do |f| %>
-      <div class="field">
-        <%= f.label :氏名 %>
-        <%= f.text_field :last_name %>
-        <%= f.text_field :first_name %>
-      </div>
-      <div class="field">
-        <%= f.label :フリガナ %>
-        <%= f.text_field :last_name_kana %>
-        <%= f.text_field :first_name_kana %>
-      </div>
-      <div class="field">
-        <%= f.label :郵便番号 %>
-        <%= f.text_field :postal_code %>
-      </div>
-      <div class="field">
-        <%= f.label :住所 %>
-        <%= f.text_field :address %>
-      </div>
-      <div class="field">
-        <%= f.label :電話番号 %>
-        <%= f.text_field :telephone_number %>
-      </div>
-      <div class="field">
-        <%= f.label :メールアドレス %>
-        <%= f.text_field :email %>
-      </div>
-      <div class="field">
-        <%= f.label :会員ステータス %>
-        <%= f.radio_button :is_active, :true %>有効
-        <%= f.radio_button :is_active, :false %>退会
-      </div>
-      <div class="actions">
-        <%= f.submit "変更を保存" %>
-      </div>
-    <% end %>
+  <div>
+      <p class="mt-3 mr-3">会員ID<span class="ml-3"><%= @customer.id %></span></p>
+      <%= form_with model: @customer, url: admin_customer_path(@customer.id), local: true do |f| %>
+        <div class="field">
+          <p class="mt-3">
+            <%= f.label :氏名 %>
+            <span class="ml-3">
+              <%= f.text_field :last_name %>
+            </span>
+            <span class="ml-3">
+              <%= f.text_field :first_name %>
+            </span>
+          </p>
+        </div>
+         <div class="field">
+          <p class="mt-3">
+            <%= f.label :フリガナ %>
+            <span class="ml-3">
+              <%= f.text_field :last_name_kana %>
+            </span>
+            <span class="ml-3">
+              <%= f.text_field :first_name_kana %>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="mt-3">
+            <%= f.label :郵便番号 %>
+            <span class="ml-3">
+              <%= f.text_field :postal_code %>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="mt-3">
+            <%= f.label :住所 %>
+            <span class="ml-3">
+              <%= f.text_field :address %>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="mt-3">
+            <%= f.label :電話番号 %>
+            <span class="ml-3">
+              <%= f.text_field :telephone_number %>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="mt-3">
+            <%= f.label :メールアドレス %>
+            <span class="ml-3">
+              <%= f.text_field :email %>
+            </span>
+          </p>
+        </div>
+        <div class="field">
+          <p class="mt-3">
+            <%= f.label :会員ステータス %>
+            <span class="ml-3">
+              <%= f.radio_button :is_active, :true %>有効
+            </span>
+            <span class="ml-3">
+              <%= f.radio_button :is_active, :false %>退会
+            </span>
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+        <div class="actions col-9">
+          <!--colで場所の指定をするときm,pなどが記載されていると競合して動かない-->
+          <%= f.submit "変更を保存", class: "btn btn-success" %>
+        </div>
+        </div>
+      <% end %>
+  </div>
 </div>

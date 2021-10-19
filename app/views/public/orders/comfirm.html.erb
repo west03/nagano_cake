@@ -28,13 +28,13 @@
       </tbody>
     </table>
   </div>
-  <div class="col-3">
+  <div class="col-4">
     <table border="1">
       <% @order.postage_cost = 800 %>
-      <tr width="12%" height="50px"><th>送料</th><td><%= @order.postage_cost %></td></tr>
-      <tr width="12%" height="50px"><th>商品合計</th><td><%= @sum %></td></tr>
+      <tr width="80px" height="50px"><th>送料</th><td><%= @order.postage_cost %></td></tr>
+      <tr width="80px" height="50px"><th>商品合計</th><td><%= @sum %></td></tr>
       <% @order.total_payment = @sum + @order.postage_cost %>
-      <tr width="12%" height="50px"><th>請求金額</th><td><%= @order.total_payment %></td></tr>
+      <tr width="80px" height="50px"><th>請求金額</th><td><%= @order.total_payment %></td></tr>
     </table>
   </div>
 </div>

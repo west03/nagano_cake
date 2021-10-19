@@ -1,37 +1,67 @@
-<h2>商品新規登録</h2>
-<% if @item.errors.any? %>
-    <%= @item.errors.count %>件のエラーが発生しました
-    <% @item.errors.full_messages.each do |message| %>
-      <%= message %><br>
+<div class="container">
+  <h2 class="my-3">商品新規登録</h2>
+  <% if @item.errors.any? %>
+      <%= @item.errors.count %>件のエラーが発生しました
+      <% @item.errors.full_messages.each do |message| %>
+        <%= message %><br>
+      <% end %>
     <% end %>
+  <%= form_with model: @item, url: admin_items_path, local: true do |f| %>
+    <div>
+      <div class="field">
+        <p>
+          <%= f.label :商品画像 %>
+          <span class="ml-3 mb-3">
+            <%= f.attachment_field :image %>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p>
+          <%= f.label :商品名 %>
+          <span class="ml-3 mb-3">
+            <%= f.text_field :name %>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p>
+          <%= f.label :商品説明 %>
+          <span class="ml-3 mb-3">
+            <%= f.text_area :introduction %>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p>
+          <%= f.label :ジャンル %>
+          <span class="ml-3 mb-3">
+            <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "選択してください" %>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p>
+          <%= f.label :税抜価格 %>
+          <span class="ml-3 mb-3">
+            <%= f.number_field :price %>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p>
+          <%= f.label :販売ステータス %>
+          <span class="ml-3 mb-3">
+            <%= f.radio_button :is_active, :true %>販売
+          </span>
+          <span class="ml-3 mb-3">
+            <%= f.radio_button :is_active, :false %>販売中止
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="actions mb-3 text-center">
+      <%= f.submit "新規登録", class: "btn-sm btn-success" %>
+   </div>
   <% end %>
-<%= form_with model: @item, url: admin_items_path, local: true do |f| %>
-  <div class="field">
-    <%= f.label :商品画像 %>
-    <%= f.attachment_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :商品名 %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :商品説明 %>
-    <%= f.text_area :introduction %>
-  </div>
-  <div class="field">
-    <%= f.label :ジャンル %>
-    <%= f.collection_select :genre_id, @genres, :id, :name, prompt: "選択してください" %>
-  </div>
-  <div class="field">
-    <%= f.label :税抜価格 %>
-    <%= f.number_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :販売ステータス %>
-    <%= f.radio_button :is_active, :true %>販売
-    <%= f.radio_button :is_active, :false %>販売中止
-  </div>
-  <div class="actions">
-    <%= f.submit "新規登録" %>
-  </div>
-<% end %>
+</div>

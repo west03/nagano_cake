@@ -1,5 +1,5 @@
 <div class="container">
-  <h2>注文履歴一覧</h2>
+  <h2 class="my-3">注文履歴一覧</h2>
   <table class="table table-borderred">
     <thead>
       <tr>
@@ -21,4 +21,5 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @orders %>
 </div>
