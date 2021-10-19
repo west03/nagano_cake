@@ -1,0 +1,74 @@
+<div class="container">
+  <h2>会員情報編集</h2>
+  <% if @customer.errors.any? %>
+    <%= @customer.errors.count %>件のエラーが発生しました
+    <% @customer.errors.full_messages.each do |message| %>
+      <%= message %><br>
+    <% end %>
+  <% end %>
+  <div>
+    <%= form_with model: @customer, url: customers_path, local: true do |f| %>
+    <div class="field">
+      <p style="margin-top: 10px;">
+        <%= f.label :氏名 %>
+        <span style="margin-left: 50px">
+          <%= f.text_field :last_name %>
+        </span>
+        <span style="margin-left: 10px;">
+          <%= f.text_field :first_name %>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p style="margin-top: 10px;">
+        <%= f.label :フリガナ %>
+        <span style="margin-left: 30px;">
+          <%= f.text_field :last_name_kana %>
+        </span>
+        <span style="margin-left: 10px;">
+          <%= f.text_field :first_name_kana %>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p style="margin-top: 10px;">
+        <%= f.label :郵便番号 %>
+        <span style="margin-left: 30px;">
+          <%= f.text_field :postal_code %>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p style="margin-top: 10px;">
+        <%= f.label :住所 %>
+        <span style="margin-left: 50px;">
+          <%= f.text_field :address %>
+        </span>
+       </p>
+    </div>
+    <div class="field">
+      <p style="margin-top: 10px;">
+        <%= f.label :電話番号%>
+        <span style="margin-left: 30px;">
+          <%= f.text_field :telephone_number %>
+        </span>
+      </p>
+    </div>
+    <div class="field">
+      <p style="margin-top: 10px;">
+        <%= f.label :メールアドレス %>
+        <span style="margin-left: 10px;">
+          <%= f.text_field :email %>
+        </span>
+      </p>
+    </div>
+    <div class="actions">
+      <%= f.submit "編集内容を保存する", class: "btn-sm btn-success" %>
+    </div>
+    <div style="margin: 10px 0px">
+      <%= link_to "退会する",   customers_unsubscribe_path(@customer.id), class: "btn-sm btn-danger" %>
+    </div>
+    <% end %>
+
+  </div>
+</div

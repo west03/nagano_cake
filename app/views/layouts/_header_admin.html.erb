@@ -1,0 +1,21 @@
+
+    <%= link_to admin_root_path do %>
+      <%= image_tag 'スクリーンショット.png',  size: '250x90' %>
+    <% end %>
+    <p>管理者ページ</p>
+        <li>
+        <%= link_to "商品一覧",  admin_items_path %>
+      </li>
+      <li>
+        <%= link_to "会員一覧",  admin_customers_path %>
+      </li>
+      <li>
+        <%= link_to "注文履歴一覧",  admin_root_path %>
+      </li>
+      <li>
+        <%= link_to "ジャンル一覧",   admin_genres_path %>
+      </li>
+      <li>
+        <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+      </li>
+

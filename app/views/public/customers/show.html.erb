@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>マイページ</h2>
+  <div class="row">
+    <div class="clo-2" style="margin: 15px;">
+      登録情報
+    </div>
+    <div class="col-3" style="margin: 15px 0px 15px 15px;">
+      <%= link_to "編集する", edit_customers_path,  class: "btn-sm btn-success"%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <!--表を実線で囲むときは<border="1">数字は太さ大きいと太くなる-->
+      <table border="1">
+        <!--表を縦に表示するとき<th>と<td>を並べる-->
+        <tr><th width="30%">氏名</th><td width="65%"><%= @customer.last_name %> <%= @customer.first_name %></td></tr>
+        <tr><th>カナ</th><td><%= @customer.last_name_kana %><%= @customer.first_name_kana %></td></tr>
+        <tr><th>郵便番号</th><td><%= @customer.postal_code %></td></tr>
+        <tr><th>住所</th><td><%= @customer.address %></td></tr>
+        <tr><th>電話番号</th> <td><%= @customer.telephone_number %></td></tr>
+        <tr><th>メールアドレス</th> <td><%= @customer.email %></td></tr>
+      </table>
+    </div>
+  </div>
+  <div style="margin: 15px;"><p>配送先 <span style="margin-left: 20px;"><%= link_to "一覧を見る", addresses_path, class: "btn-sm btn-primary" %></span></p></div>
+  <div style="margin: 15px;"><p>注文履歴<span style="margin-left: 15px;"><%= link_to "一覧を見る", orders_path,class: "btn-sm btn-primary" %></span></p></div>
+</div>

@@ -1,0 +1,65 @@
+<div class="container">
+  <h2>注文情報確認</h2>
+  <div class="row">
+    <div class="col-8">
+      <table border="1">
+        <thead>
+          <tr>
+            <th width="30%" height="60px">商品名</th>
+            <th width="12%">単価(税込)</th>
+            <th width="12%">数量</th>
+            <th width="12%">小計</th>
+          </tr>
+        </thead>
+      <tbody>
+        <% @sum = 0 %>
+        <% @cart_items.each do |cart_item| %>
+        <tr>
+          <td>
+            <%= attachment_image_tag cart_item.item, :image, :fill, 60,50 %>
+            <%= cart_item.item.name %>
+          </td>
+          <td><%= cart_item.item.with_tax_price %></td>
+          <td><%= cart_item.amount %></td>
+          <td><%= cart_item.subtotal %></td>
+          <% @sum += cart_item.subtotal %>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-4">
+    <table border="1">
+      <% @order.postage_cost = 800 %>
+      <tr width="80px" height="50px"><th>送料</th><td><%= @order.postage_cost %></td></tr>
+      <tr width="80px" height="50px"><th>商品合計</th><td><%= @sum %></td></tr>
+      <% @order.total_payment = @sum + @order.postage_cost %>
+      <tr width="80px" height="50px"><th>請求金額</th><td><%= @order.total_payment %></td></tr>
+    </table>
+  </div>
+</div>
+  <p class="m-2">お支払い方法<span><%= @order.payment_method_i18n %></span></p>
+  <p class="m-2">
+    お届け先
+    <span class="m-2">〒
+      <%= @order.postal_code %>
+      <%= @order.address %><br>
+      <%= @order.name %>
+    </span>
+  </p>
+  <div>
+    <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+      <%= f.hidden_field :customer_id %>
+      <%= f.hidden_field :postage_cost %>
+      <%= f.hidden_field :total_payment %>
+      <%= f.hidden_field :payment_method %>
+      <%= f.hidden_field :name %>
+      <%= f.hidden_field :address %>
+      <%= f.hidden_field :postal_code %>
+      <%= f.hidden_field :status %>
+      <div class="mx-auto">
+        <%= f.submit "注文を確定する", class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>

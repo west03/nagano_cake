@@ -1,15 +1,25 @@
-<div>
+<div class="container">
   <h2>ジャンル一覧・追加</h2>
-      <%= form_with model: @genre, url: admin_genres_path do |f| %>
-      <div class="field">
-        <%= f.label :ジャンル名 %>
-        <%= f.text_field :name, autofocus: true%>
-      </div>
-      <div class="actions">
-        <%= f.submit "新規登録" %>
+  <% if @genre.errors.any? %>
+    <%= @genre.errors.count %>件のエラーが発生しました
+    <% @genre.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+      <%= form_with model: @genre, url: admin_genres_path, local: true do |f| %>
+      <div class="field my-3">
+        <p>
+          <%= f.label :ジャンル名 %>
+          <span class="ml-3">
+            <%= f.text_field :name, autofocus: true%>
+          </span>
+          <span class="actions ml-3">
+            <%= f.submit "新規登録", class: "btn-sm btn-success"  %>
+          </span>
+        </p>
       </div>
       <% end %>
-  <table>
+  <table class="mb-3">
     <thead>
       <tr>
         <th>ジャンル</th>
@@ -19,8 +29,8 @@
     <tbody>
       <% @genres.each do |genre| %>
       <tr>
-        <td><%= genre.name %></td>
-        <td><%= link_to "編集する",  edit_admin_genre_path(genre) %></td>
+        <td width="150px"><%= genre.name %></td>
+        <td><%= link_to "編集する",  edit_admin_genre_path(genre), class: "btn btn-success" %></td>
       </tr>
       <% end %>
     </tbody>
